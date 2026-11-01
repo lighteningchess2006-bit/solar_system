@@ -1,0 +1,15 @@
+{% extends 'learning/base.html' %}
+{% load static %}
+{% block title %}Science Study | Study Hub{% endblock %}
+{% block content %}
+  <a class="back" href="{% url 'learning:home' %}">&larr; Back to Study Hub</a>
+  <p class="eyebrow">SCIENCE / THE SOLAR SYSTEM</p>
+  <h1>Science Study</h1>
+  <p class="intro">Welcome, space explorer! Let's get to know our solar system.</p>
+  <section class="welcome" aria-labelledby="solar-welcome">
+    <h2 id="solar-welcome">Our place in space</h2>
+    <p>Our solar system is home to the Sun, eight planets, their moons and many smaller objects. Earth is the third planet from the Sun.</p>
+    <p>Start by exploring the planets. Which one takes the longest to travel around the Sun?</p>
+    <a class="button" href="{% static 'explorer/solar-system.html' %}">Explore the solar system <span aria-hidden="true">&rarr;</span></a>
+  </section>
+{% endblock %}
