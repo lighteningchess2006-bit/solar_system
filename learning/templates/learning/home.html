@@ -1,6 +1,9 @@
 {% extends 'learning/base.html' %}
 {% block content %}
   <p class="eyebrow">WELCOME TO YOUR STUDY SPACE</p>
+  {% if user.is_authenticated %}
+    <p class="intro">Welcome, {{ user.username }}!</p>
+  {% endif %}
   <h1>Big ideas.<br>Small steps.</h1>
   <p class="intro">Welcome to Study Hub. Choose a subject and discover something new today.</p>
   <section class="subjects" aria-label="Study subjects">

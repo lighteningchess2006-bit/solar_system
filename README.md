@@ -50,3 +50,32 @@ gallery is `/static/explorer/index.html`.
 
 This setup runs locally with Django's development server. The existing static
 hosting configuration does not run this Python application.
+
+## Student accounts
+
+- `/accounts/signup/` uses Django's `UserCreationForm` to validate usernames,
+  confirm passwords, apply the configured password rules, and store password
+  hashes. The signup view signs the new student in and redirects home.
+- `/accounts/login/` uses Django's `LoginView` and its authentication form.
+  `/accounts/logout/` uses `LogoutView`, submitted through a CSRF-protected
+  POST button in the shared header. Both redirect home by default, as configured
+  in `config/settings.py`.
+- `login.html` and `signup.html` extend the shared layout and display Django's
+  validation errors and help text. `study.css` styles the account forms.
+- `home.html` displays the authenticated student's username using the existing
+  authentication template context processor. Django escapes the username.
+  Visitors can continue to browse the public home and science pages.
+
+Run migrations and local checks with the project's virtual environment:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py check
+.\.venv\Scripts\python.exe manage.py test
+```
+
+For a manual check, start the server, open `/accounts/signup/`, and create an
+account. Confirm your username appears on the home page, log out, then log in
+again. Try an incorrect password and a duplicate username to see form errors.
+Automated tests cover these flows, password hashing and validation, CSRF
+protection, POST-only logout, and rejection of external login redirects.
