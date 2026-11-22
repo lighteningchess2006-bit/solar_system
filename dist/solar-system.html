@@ -17,7 +17,7 @@
     aside{padding:23px;display:flex;flex-direction:column}.facts-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.facts-top .eyebrow{margin:0}.index{color:var(--muted);font-size:10px}h2{margin:14px 0 7px;font:400 34px var(--serif)}.description{min-height:58px;margin:0;color:#bac5bc;font-size:12px;line-height:1.7}.stats{margin:17px 0;border-top:1px solid var(--line)}.stat{min-height:39px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line)}.stat dt{color:var(--muted);font-size:10px}.stat dd{margin:0;font-size:10px;text-align:right;font-variant-numeric:tabular-nums}.planet-list{margin-top:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.planet-pick{min-height:32px;padding:5px 2px;border:1px solid transparent;border-radius:2px;background:transparent;color:var(--muted);font-size:10px;cursor:pointer}.planet-pick:hover,.planet-pick[aria-pressed=true]{border-color:#a7e4c455;background:#a7e4c410;color:var(--ink)}.note{margin:12px 0 0;color:#77877b;font-size:9px;line-height:1.6}.note a{color:var(--mint);text-decoration:none}footer{display:flex;justify-content:space-between;gap:12px;padding-top:13px;color:var(--muted);font-size:9px}:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
     @media(min-height:850px){.workspace{min-height:600px}}@media(max-width:850px){.shell{padding-inline:24px}.workspace{grid-template-columns:minmax(0,1fr) 270px}aside{padding:19px 16px}.controls{padding-inline:10px}.speed{gap:8px}}
     @media(max-width:650px){.shell{padding:0 16px 18px}header{min-height:60px}.meta{font-size:9px}.heading{min-height:112px;align-items:flex-start;justify-content:center;flex-direction:column;gap:2px}.heading-note{max-width:none;margin:0}.workspace{display:flex;flex-direction:column}.system{border-right:0}.canvas-wrap,#space{min-height:320px;height:58vw;max-height:420px}.controls{min-height:64px;padding:9px 2px}.speed{grid-template-columns:auto minmax(50px,1fr) auto}.speed label{font-size:10px}output{min-width:91px;font-size:9px}aside{padding:16px 2px 6px}h2{margin-top:9px}.description{min-height:0}.stats{margin:12px 0}.stat{min-height:36px}.planet-list{padding-top:5px}footer{font-size:8px}}
-    @media(max-width:650px){.header-right{gap:7px}.page-switch{min-height:30px;padding:0 8px;font-size:9px}.meta{font-size:8px}}
+    @media(max-width:650px){header{flex-wrap:wrap;gap:8px;padding-block:8px}.header-right{flex-wrap:wrap;gap:7px}.page-switch{min-height:30px;padding:0 8px;font-size:9px}.meta{font-size:8px}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
   </style>
 </head>
@@ -29,7 +29,14 @@
   </dialog>
   <script src="orbital-splash.js"></script>
   <div class="shell">
-    <header><div class="brand"><b aria-hidden="true">◉</b> ORBITAL &nbsp; / &nbsp; SOLAR SYSTEM</div><div class="header-right"><a class="page-switch" href="index.html?view=gallery">Planet gallery</a><div class="meta">The Sun · eight planets</div></div></header>
+    <header>
+      <div class="brand"><b aria-hidden="true">◉</b> ORBITAL &nbsp; / &nbsp; SOLAR SYSTEM</div>
+      <nav class="header-right" aria-label="Explorer navigation">
+        <a class="page-switch" href="/"><span aria-hidden="true">&larr;&nbsp;</span> Back to Study Hub</a>
+        <a class="page-switch" href="index.html?view=gallery">Planet gallery</a>
+        <div class="meta">The Sun · eight planets</div>
+      </nav>
+    </header>
     <main>
       <section class="heading"><div><p class="orbital-wordmark orbital-wordmark--dark">Orbital</p><h1>Our solar system</h1></div><p class="heading-note">Choose a planet to explore. Orbit spacing and planet sizes are simplified.</p></section>
       <section class="workspace" aria-label="Interactive solar system">
