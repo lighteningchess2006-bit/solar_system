@@ -41,3 +41,88 @@
     color: CanvasText;
   }
 }
+
+.orbital-splash[open] {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 24px;
+  overflow: hidden;
+  border: 0;
+  background: radial-gradient(ellipse at center, #172441, #080b1a 68%);
+  color: #f1f5ff;
+  animation: orbital-splash-exit 300ms ease-in 1.8s both;
+}
+
+.orbital-splash::backdrop { background: transparent; }
+
+.orbital-splash-art {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: min(100%, 39rem);
+  aspect-ratio: 2 / 1;
+}
+
+.orbital-splash-art::before {
+  position: absolute;
+  z-index: -1;
+  inset: 18% 0;
+  border: 2px solid #72e6ad;
+  border-radius: 50%;
+  box-shadow: 0 0 24px #82b3ff88, inset 0 0 18px #d6a8ff55;
+  content: '';
+  animation: orbital-splash-ring 1.2s ease-out both;
+}
+
+.orbital-splash-title {
+  display: flex;
+  font: 700 clamp(3.5rem, 17vw, 10rem)/1.08 system-ui, sans-serif;
+  letter-spacing: -.06em;
+  filter: drop-shadow(0 0 26px #82b3ff55);
+}
+
+.orbital-splash-title span {
+  color: var(--letter-color);
+}
+
+.orbital-splash-title span:nth-child(1) { --letter-color: #82b3ff; --x: -46vw; --y: -33vh; --spin: -75deg; }
+.orbital-splash-title span:nth-child(2) { --letter-color: #7dc8f1; --x: -31vw; --y: 37vh; --spin: 96deg; }
+.orbital-splash-title span:nth-child(3) { --letter-color: #75dbca; --x: -16vw; --y: -45vh; --spin: -120deg; }
+.orbital-splash-title span:nth-child(4) { --letter-color: #72e6ad; --x: 5vw; --y: 44vh; --spin: 140deg; }
+.orbital-splash-title span:nth-child(5) { --letter-color: #9cd6d1; --x: 19vw; --y: -39vh; --spin: 80deg; }
+.orbital-splash-title span:nth-child(6) { --letter-color: #bcb9ed; --x: 31vw; --y: 35vh; --spin: -105deg; }
+.orbital-splash-title span:nth-child(7) { --letter-color: #d6a8ff; --x: 47vw; --y: -23vh; --spin: 110deg; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .orbital-splash-title { animation: orbital-shade-in 950ms ease-out both; }
+  .orbital-splash-title span { animation: orbital-letter-scatter 750ms cubic-bezier(.45, .05, .75, .9) 1.15s both; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbital-splash[open], .orbital-splash-art::before { animation: none; }
+  .orbital-splash-art::before { transform: rotate(-17deg); }
+}
+
+@keyframes orbital-letter-scatter {
+  from { transform: translate(0, 0) rotate(0); opacity: 1; }
+  30% { opacity: 1; }
+  to { transform: translate(var(--x), var(--y)) rotate(var(--spin)) scale(.55); opacity: 0; }
+}
+
+@keyframes orbital-splash-ring {
+  from { transform: rotate(-17deg) scale(.64); opacity: 0; }
+  to { transform: rotate(-17deg) scale(1); opacity: .85; }
+}
+
+@keyframes orbital-splash-exit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
