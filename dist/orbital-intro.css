@@ -1,0 +1,43 @@
+.orbital-wordmark {
+  --orbital-blue: #1d52ad;
+  --orbital-green: #0b7754;
+  --orbital-purple: #7438a0;
+  display: inline-block;
+  margin: 0;
+  color: var(--orbital-blue);
+  font: 700 clamp(2.75rem, 8vw, 5.5rem)/1.08 system-ui, sans-serif;
+  letter-spacing: -.06em;
+}
+
+.orbital-wordmark--dark {
+  --orbital-blue: #82b3ff;
+  --orbital-green: #72e6ad;
+  --orbital-purple: #d6a8ff;
+  margin-top: .18em;
+}
+
+@supports (background-clip: text) {
+  .orbital-wordmark {
+    background-image: linear-gradient(105deg, var(--orbital-blue) 15%, var(--orbital-green) 50%, var(--orbital-purple) 85%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .orbital-wordmark {
+      animation: orbital-shade-in 950ms ease-out both;
+    }
+  }
+}
+
+@keyframes orbital-shade-in {
+  from { opacity: .35; background-size: 230% 100%; }
+  to { opacity: 1; background-size: 100% 100%; }
+}
+
+@media (forced-colors: active) {
+  .orbital-wordmark {
+    animation: none;
+    color: CanvasText;
+  }
+}
