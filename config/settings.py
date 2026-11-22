@@ -29,10 +29,17 @@ SECRET_KEY = 'django-insecure-hvl85do1xqdu#a8zgfypv#l!kn*b2np52(8hsv6vp+^33$3ml8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if os.environ.get('VERCEL_ENV') == 'preview':
+vercel_environment = os.environ.get('VERCEL_ENV')
+if vercel_environment in {'preview', 'production'}:
     DEBUG = False
-    SECRET_KEY = os.environ.get('DJANGO_PREVIEW_SECRET_KEY', SECRET_KEY)
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+
+if vercel_environment == 'production':
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+elif vercel_environment == 'preview':
+    SECRET_KEY = os.environ.get('DJANGO_PREVIEW_SECRET_KEY', SECRET_KEY)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.vercel.app']
 
@@ -90,10 +97,13 @@ DATABASES = {
     }
 }
 
-local_database_url = dotenv_values(BASE_DIR / '.env.local').get('DATABASE_URL')
-database_url = local_database_url
-if os.environ.get('VERCEL_ENV') == 'preview':
+if vercel_environment == 'production':
+    database_url = os.environ['STUDY_HUB_PRODUCTION_DATABASE_URL']
+elif vercel_environment == 'preview':
     database_url = os.environ.get('STUDY_HUB_PREVIEW_DATABASE_URL')
+else:
+    database_url = dotenv_values(BASE_DIR / '.env.local').get('DATABASE_URL')
+
 if database_url:
     DATABASES['default'] = dj_database_url.parse(database_url)
     DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS'] = True
