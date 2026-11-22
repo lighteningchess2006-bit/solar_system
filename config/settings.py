@@ -32,6 +32,7 @@ DEBUG = True
 if os.environ.get('VERCEL_ENV') == 'preview':
     DEBUG = False
     SECRET_KEY = os.environ.get('DJANGO_PREVIEW_SECRET_KEY', SECRET_KEY)
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.vercel.app']
 
