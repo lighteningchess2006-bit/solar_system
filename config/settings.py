@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 import dj_database_url
@@ -27,6 +28,10 @@ SECRET_KEY = 'django-insecure-hvl85do1xqdu#a8zgfypv#l!kn*b2np52(8hsv6vp+^33$3ml8
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+if os.environ.get('VERCEL_ENV') == 'preview':
+    DEBUG = False
+    SECRET_KEY = os.environ.get('DJANGO_PREVIEW_SECRET_KEY', SECRET_KEY)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.vercel.app']
 
@@ -85,8 +90,11 @@ DATABASES = {
 }
 
 local_database_url = dotenv_values(BASE_DIR / '.env.local').get('DATABASE_URL')
-if local_database_url:
-    DATABASES['default'] = dj_database_url.parse(local_database_url)
+database_url = local_database_url
+if os.environ.get('VERCEL_ENV') == 'preview':
+    database_url = os.environ.get('STUDY_HUB_PREVIEW_DATABASE_URL')
+if database_url:
+    DATABASES['default'] = dj_database_url.parse(database_url)
     DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS'] = True
 
 
